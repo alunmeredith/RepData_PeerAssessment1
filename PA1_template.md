@@ -1,9 +1,4 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 Introduction
 ===============
@@ -18,7 +13,7 @@ library(gridExtra)
 ```
 
 Downloading, extracting and reading the data into a data frame called "data" and changing the date variable to a date format.   
-Note: The time and date of the download: 2015-08-07 14:20:54 BST (or GMT depending on time of year)
+Note: The time and date of the download: 2015-08-07 15:22:35 BST (or GMT depending on time of year)
 
 ```r
 url = "http://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
@@ -51,7 +46,7 @@ daily.steps <- group_by(data, date) %>%
   summarise(total.steps = sum(steps))
 ```
 
-The summary statistics for this data is given, showing the quartiles and mean of total steps taken per day:  
+The summary statistics for this data is given, showing a **mean of 1.0766189\times 10^{4}** and **median of 10765**
 
 ```r
 summary(daily.steps$total.steps)
@@ -77,17 +72,10 @@ plot1 <- ggplot(daily.steps, aes(total.steps)) +
   scale_x_continuous(breaks=seq(1000, 25000, 4000)) +
   ylim(0,18) +
   xlim(0, 23000)
-```
-
-```
-## Scale for 'x' is already present. Adding another scale for 'x', which will replace the existing scale.
-```
-
-```r
 plot1
 ```
 
-<img src="figure/histogram date-1.png" title="plot of chunk histogram date" alt="plot of chunk histogram date" style="display: block; margin: auto;" />
+<img src="PA1_template_files/figure-html/histogram date-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 What is the average daily pattern
 ============================================================================================
@@ -103,7 +91,7 @@ This is done by first grouping the data by interval and then calculating the mea
 interval.steps <- group_by(data, interval) %>%
   summarise(mean.steps = mean(steps, na.rm=T))
 ```
-The summary statistics of this data is given below, showing the maximum number of steps taken as 206.1698113 at interval 104
+The summary statistics of this data is given below; The **mean is 37.3825996** and **median is 34.1132075**, the **maximum** average steps taken is 206.1698113 at **interval 104**
 
 ```r
 summary(interval.steps$mean.steps)
@@ -133,7 +121,7 @@ ggplot(interval.steps, aes(interval, mean.steps)) +
   labs(title = "Time series showing average steps per time interval over the day")
 ```
 
-![plot of chunk line graph - interval](figure/line graph - interval-1.png) 
+![](PA1_template_files/figure-html/line graph - interval-1.png) 
 
 Imputing Missing Values
 ============================================================================================
@@ -210,8 +198,8 @@ summary(imputed.daily.steps$total.steps)
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##      41    8918   11020   10820   12810   21190
 ```
-The mean has not changed significantly incresing from 1.077 &times; 10<sup>4</sup> to 1.082 &times; 10<sup>4</sup> a increase of 0.4642526%  
-The median has changed more signifficantly increasing from from 1.076 &times; 10<sup>4</sup> to 1.102 &times; 10<sup>4</sup> a increase of 2.4163569%  
+The mean has not changed significantly incresing from 1.077\times 10^{4} to 1.082\times 10^{4} a increase of 0.4642526%  
+The median has changed more signifficantly increasing from from 1.076\times 10^{4} to 1.102\times 10^{4} a increase of 2.4163569%  
 
 We can replot the histogram of total daily steps to see where these extra days have been binned. 
 
@@ -237,7 +225,7 @@ plot3 <- ggplot(imputed.daily.steps, aes(total.steps)) +
 grid.arrange(plot1, plot3, ncol=2)
 ```
 
-<img src="figure/imputed histogram date-1.png" title="plot of chunk imputed histogram date" alt="plot of chunk imputed histogram date" style="display: block; margin: auto;" />
+<img src="PA1_template_files/figure-html/imputed histogram date-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 We can see above that the imputed NA values cluster around the ~9000 steps and ~13000 steps bucket. In total not affecting the mean too much but pushing up the median. Only one of the missing days has been binned in the most frequent bucket. 
 
@@ -269,7 +257,7 @@ ggplot(imputed.interval.steps, aes(interval, mean.steps)) +
   labs(title = "Comparing weekend and weekday time series")
 ```
 
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
 Interesting characteristics shown:  
 
 + Weekday steps start earlier in the day implying an earlier waking time. 

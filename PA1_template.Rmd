@@ -48,14 +48,14 @@ daily.steps <- group_by(data, date) %>%
   summarise(total.steps = sum(steps))
 ```
 
-The summary statistics for this data is given, showing the quartiles and mean of total steps taken per day:  
+The summary statistics for this data is given, showing a **mean of `r mean(daily.steps$total.steps, na.rm=T)`** and **median of `r median(daily.steps$total.steps, na.rm=T)`**
 ```{r}
 summary(daily.steps$total.steps)
 ```
 
 Using this data we can plot a histogram showing how total steps taken per day varies.  
 A bin width of 2000 was chosen to improve the number of meaninful frequencies (small frequency counts give high uncertainty) while keeping a clear shape.   
-```{r histogram date, fig.height=4, fig.width=6, fig.align='center'}
+```{r histogram date, fig.height=4, fig.width=6, fig.align='center', message=FALSE}
 plot1 <- ggplot(daily.steps, aes(total.steps)) +
   geom_histogram(binwidth=2000, fill="darkblue") +
   labs(y = "Frequency") +
@@ -67,7 +67,6 @@ plot1 <- ggplot(daily.steps, aes(total.steps)) +
   scale_x_continuous(breaks=seq(1000, 25000, 4000)) +
   ylim(0,18) +
   xlim(0, 23000)
-
 plot1
 ```
 
@@ -84,7 +83,7 @@ This is done by first grouping the data by interval and then calculating the mea
 interval.steps <- group_by(data, interval) %>%
   summarise(mean.steps = mean(steps, na.rm=T))
 ```
-The summary statistics of this data is given below, showing the maximum number of steps taken as `r max(interval.steps$mean.steps)` at interval `r which.max(interval.steps$mean.steps)`
+The summary statistics of this data is given below; The **mean is `r mean(interval.steps$mean.steps)`** and **median is `r median(interval.steps$mean.steps)`**, the **maximum** average steps taken is `r max(interval.steps$mean.steps)` at **interval `r which.max(interval.steps$mean.steps)`**
 ```{r}
 summary(interval.steps$mean.steps)
 which.max(interval.steps$mean.steps)
